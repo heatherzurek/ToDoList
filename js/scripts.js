@@ -1,35 +1,35 @@
 // Business Logic for AddressBook ---------
-function LocationList() {
-  this.places = [],
+function ToDoList() {
+  this.tasks = [],
   this.currentId = 0
 }
 
-LocationList.prototype.addPlace = function(place) {
-  place.id = this.assignId();
-  this.places.push(place);
+ToDoList.prototype.addTasks = function(tasks) {
+  tasks.id = this.assignId();
+  this.tasks.push(tasks);
 }
 
-LocationList.prototype.assignId = function() {
+ToDoList.prototype.assignId = function() {
   this.currentId += 1;
   return this.currentId;
 }
 
-LocationList.prototype.findPlace = function(id) {
-  for (var i=0; i< this.places.length; i++) {
-    if (this.places[i]) {
-      if (this.places[i].id == id) {
-        return this.places[i];
+ToDoList.prototype.findTasks = function(id) {
+  for (var i=0; i< this.tasks.length; i++) {
+    if (this.tasks[i]) {
+      if (this.tasks[i].id == id) {
+        return this.tasks[i];
       }
     }
   };
   return false;
 }
 
-LocationList.prototype.deletePlace = function(id) {
-  for (var i=0; i< this.places.length; i++) {
-    if (this.places[i]) {
-      if (this.places[i].id == id) {
-        delete this.places[i];
+ToDoList.prototype.deleteTask = function(id) {
+  for (var i=0; i< this.tasks.length; i++) {
+    if (this.tasks[i]) {
+      if (this.tasks[i].id == id) {
+        delete this.tasks[i];
         return true;
       }
     }
@@ -38,58 +38,56 @@ LocationList.prototype.deletePlace = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Place(name, date,landmarks) {
-  this.name = name,
-  this.date = date,
-  this.landmarks = landmarks
+function Tasks(task, notes) {
+  this.task = task,
+  this.notes = notes
 }
 
 // User Interface Logic ---------
-var placesList = new LocationList();
+var tasksList = new ToDoList();
 
-function displayLocationDetails(locationToDisplay) {
-  var locationsList = $("ul#place");
-  var htmlForLocation = "";
-  locationToDisplay.places.forEach(function(place) {
-    htmlForLocation += "<li id=" + place.id + ">" + place.name + "</li>";
+function displayToDoDetails(toDoToDisplay) {
+  var toDoList = $("ul#task");
+  var htmlForTasks = "";
+  toDoToDisplay.tasks.forEach(function(task) {
+    htmlForTasks += "<li id=" + task.id + ">" + task.task + "</li>";
   });
-  locationsList.html(htmlForLocation);
+  toDoList.html(htmlForTasks);
 };
 
-function showPlaceInfo(id) {
-  var place = placesList.findPlace(id);
-  $("#show-contact").show();
-  $(".field1").html(place.name);
-  $(".field2").html(place.date);
-  $(".field3").html(place.landmarks);
+function showTaskInfo(id) {
+  var list = tasksList.findTasks(id);
+  $("#show-task").show();
+  $(".field1").html(list.task);
+  $(".field2").html(list.notes);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + id + ">Delete</button>");
 }
 
 function attachListeners() {
-  $("ul#place").on("click", "li", function() {
-    showPlaceInfo(this.id);
+  $("ul#task").on("click", "li", function() {
+    showTaskInfo(this.id);
   });
   $("#buttons").on("click", ".deleteButton", function() {
-    placesList.deletePlace(this.id);
-    $("#show-contact").hide();
-    displayLocationDetails(placesList);
+    tasksList.deleteTask(this.id);
+    $("#show-task").hide();
+    displayToDoDetails(tasksList);
   });
 };
 
 $(document).ready(function() {
   attachListeners();
-  $("form#new-contact").submit(function(event) {
+  $("form#toDo").submit(function(event) {
     event.preventDefault();
     var arr = [];
-    for(var i = 1;i<=3;i++)
+    for(var i = 1;i<=2;i++)
     {
       arr.push($("input#field"+i).val());
       $("input#field"+i).val("");
     }
-    var newPlace = new Place(arr[0], arr[1], arr[2]);
-    placesList.addPlace(newPlace);
-    displayLocationDetails(placesList);
+    var newItem = new Tasks(arr[0], arr[1]);
+    tasksList.addTasks(newItem);
+    displayToDoDetails(tasksList);
   })
 })

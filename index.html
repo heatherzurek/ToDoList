@@ -5,41 +5,35 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/scripts.js"></script>
-    <title>Address Book</title>
+    <title>To do list</title>
     <title></title>
   </head>
   <body>
     <div class="container">
-      <h1>Vacation Memories</h1>
+      <h1>To Do List</h1>
       <div class="row">
         <div class="col-md-6">
           <hr>
-          <h2>Where did you go?</h2>
-          <form id="new-contact">
+          <form id="toDo">
             <div class="form-group">
-              <label for="field1">Location</label>
+              <label for="field1">Task</label>
               <input type="text"  class="form-control" id="field1">
             </div>
             <div class="form-group">
-              <label for="field2">Time Of Year</label>
+              <label for="field2">Notes</label>
               <input type="text"  class="form-control" id="field2">
             </div>
-            <div class="form-group">
-              <label for="field3">landmarks</label>
-              <input type="text"  class="form-control" id="field3">
-            </div>
-            <button type="submit" class="btn-primary">Add</button>
+            <button type="submit" class="btn-primary">Add to list</button>
           </form>
           <hr>
-          <h2>Vacation Place:</h2>
-          <ul id="place">
+          <h2>Tasks:</h2>
+          <ul id="task">
           </ul>
         </div>
         <div class="col-md-6">
-          <div id="show-contact">
-            <p>Location: <span class="field1"></span></p>
-            <p>Time of Year: <span class="field2"></span></p>
-            <p>Landmarks: <span class="field3"></span></p>
+          <div id="show-task">
+            <p>Task: <span class="field1"></span></p>
+            <p>Notes: <span class="field2"></span></p>
             <div id="buttons">
             </div>
           </div>
